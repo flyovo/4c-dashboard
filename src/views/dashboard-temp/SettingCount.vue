@@ -6,6 +6,8 @@
     <div class="dashboard-setting-count__wrapper">
       <div class="dashboard-setting-count__chart-card">
         <bar-chart :chart-items="chartItems" />
+        <date-picker />
+        <el-date-picker v-model="test" type="date" placeholder="날짜 선택" />
         <chart-to-csv :chart-title="title" :chart-items="chartItems" />
       </div>
     </div>
@@ -14,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import DatePicker from '@/components/DatePicker/index.vue'
 import BarChart, { IBarChart } from '@/components/Chart/BarChart.vue'
 import variables from '@/styles/_variables.scss'
 import { MessageService } from '@/utils/message-service'
