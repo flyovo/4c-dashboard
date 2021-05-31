@@ -6,6 +6,9 @@
           <el-button type="info" :class="{ active: selectDate === 0 }" @click="handleDateChange(0)">당월</el-button>
           <el-button type="info" :class="{ active: selectDate === 1 }" @click="handleDateChange(1)">전월</el-button>
           <el-button type="info" :class="{ active: selectDate === 2 }" @click="handleDateChange(2)">연간</el-button>
+          <div class="raw-data-table__header__button__date__text">
+            <div>조회 기간 : {{ dateRange.from }} ~ {{ dateRange.to }}</div>
+          </div>
         </div>
         <div class="raw-data-table__header__button__excel">
           <download-excel :data="tableData" name="filename.xls">
@@ -13,9 +16,9 @@
           </download-excel>
         </div>
       </div>
-      <div class="raw-data-table__header__text">
+      <!-- <div class="raw-data-table__header__text">
         <div>조회 기간 : {{ dateRange.from }} ~ {{ dateRange.to }}</div>
-      </div>
+      </div> -->
     </div>
     <div class="raw-data-table__body">
       <div class="raw-data-table__body__table">
@@ -116,18 +119,19 @@ export default class extends Vue {
     padding-bottom: 20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    &__text {
-      div {
-        padding-top: 20px;
-        font-size: 14px;
-      }
-    }
+
     &__button {
       height: 32px;
       display: flex;
       justify-content: space-between;
       &__date {
         height: 100%;
+        &__text {
+          display: inline-block;
+          div {
+            font-size: 14px;
+          }
+        }
       }
       &__excel {
         height: 100%;
@@ -142,6 +146,9 @@ export default class extends Vue {
           background-color: #2a2a2a;
           border-color: #2a2a2a;
         }
+        &:nth-child(3) {
+          margin-right: 15px;
+        }
       }
     }
   }
@@ -154,6 +161,13 @@ export default class extends Vue {
     margin-bottom: 100px;
     &__table {
       padding: 0%;
+      // table {
+      //   thead {
+      //     tr:nth-child(1) {
+      //       display: none;
+      //     }
+      //   }
+      // }
     }
     &__paging {
       text-align: center;
@@ -172,6 +186,7 @@ export default class extends Vue {
   }
 }
 </style>
+
 <style lang="scss">
 .raw-data-table {
   table {

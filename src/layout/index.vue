@@ -71,6 +71,7 @@ export default class extends mixins(ResizeMixin) {
   position: relative;
   height: 100%;
   width: 100%;
+  min-width: 375px;
   display: flex;
   flex-direction: column;
 }

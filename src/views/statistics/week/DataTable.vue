@@ -6,6 +6,9 @@
           <el-button type="info" :class="{ active: selectDate === 0 }" @click="handleDateChange(0)">당월</el-button>
           <el-button type="info" :class="{ active: selectDate === 1 }" @click="handleDateChange(1)">전월</el-button>
           <el-button type="info" :class="{ active: selectDate === 2 }" @click="handleDateChange(2)">연간</el-button>
+          <div class="statistics-table__header__button__date__text">
+            <div>조회 기간 : {{ dateRange.from }} ~ {{ dateRange.to }}</div>
+          </div>
         </div>
         <div class="statistics-table__header__button__excel">
           <download-excel :data="tableData" name="filename.xls">
@@ -13,9 +16,9 @@
           </download-excel>
         </div>
       </div>
-      <div class="statistics-table__header__text">
+      <!-- <div class="statistics-table__header__text">
         <div>조회 기간 : {{ dateRange.from }} ~ {{ dateRange.to }}</div>
-      </div>
+      </div> -->
     </div>
     <div class="statistics-table__body">
       <div class="statistics-table__body__table">
@@ -143,6 +146,12 @@ export default class extends Vue {
       justify-content: space-between;
       &__date {
         height: 100%;
+        &__text {
+          display: inline-block;
+          div {
+            font-size: 14px;
+          }
+        }
       }
       &__excel {
         height: 100%;
@@ -156,6 +165,9 @@ export default class extends Vue {
         &.active {
           background-color: #2a2a2a;
           border-color: #2a2a2a;
+        }
+        &:nth-child(3) {
+          margin-right: 15px;
         }
       }
     }
