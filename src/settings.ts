@@ -1,3 +1,8 @@
+interface Menu {
+  menu: string
+  title: string
+  child?: Array<Menu>
+}
 interface ISettings {
   title: string // Overrides the default title
   showSettings: boolean // Controls settings panel display
@@ -9,11 +14,11 @@ interface ISettings {
   devServerPort: number // Port number for webpack-dev-server
   // mockServerPort: number // Port number for mock server
   loginTime: number
+  menuList: Array<Menu>
 }
 
-// You can customize below settings :)
 const settings: ISettings = {
-  title: 'MEDILNIX',
+  title: '4C gate',
   showSettings: true,
   showTagsView: false,
   fixedHeader: false,
@@ -21,7 +26,57 @@ const settings: ISettings = {
   errorLog: ['production'],
   sidebarTextTheme: true,
   devServerPort: 9527,
-  loginTime: 1800
+  loginTime: 1800,
+  menuList: [
+    {
+      menu: 'dashboard',
+      title: '대시보드'
+    },
+    {
+      menu: 'raw-data',
+      title: 'RawData 조회',
+      child: [
+        {
+          menu: 'receipt',
+          title: '외래&입원 수납 Data'
+        },
+        {
+          menu: 'certification',
+          title: '증명서 발급 Data'
+        }
+      ]
+    },
+    {
+      menu: 'statistics',
+      title: '통계 값',
+      child: [
+        {
+          menu: 'out-patient',
+          title: '외래 수납 실적'
+        },
+        {
+          menu: 'in-patient',
+          title: '입원 수납 실적'
+        },
+        {
+          menu: 'certificate',
+          title: '증명서 발급 실적'
+        },
+        {
+          menu: 'receipt/week',
+          title: '요일별 수납 실적'
+        },
+        // {
+        //   menu: 'receipt/compare',
+        //   title: '수납 실적비교'
+        // },
+        {
+          menu: 'receipt/wait',
+          title: '수납 대기시간'
+        }
+      ]
+    }
+  ]
 }
 
 export default settings

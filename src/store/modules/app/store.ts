@@ -1,13 +1,14 @@
 import store from '@/store'
 
-import { getSidebarStatus, getSize, setSidebarStatus, setLanguage, setSize } from '@/utils/cookies'
+// import { getSidebarStatus, getSize, setSidebarStatus, setLanguage, setSize } from '@/utils/cookies'
+import { getSize, setLanguage, setSize } from '@/utils/cookies'
 import { getLocale } from '@/lang'
 
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 
 export enum DeviceType {
-  Mobile,
-  Desktop
+  Desktop,
+  Mobile
 }
 
 export interface IAppState {
@@ -23,7 +24,7 @@ export interface IAppState {
 @Module({ dynamic: true, store, name: 'app', namespaced: true })
 class App extends VuexModule implements IAppState {
   public sidebar = {
-    opened: getSidebarStatus() !== 'closed',
+    opened: true, // getSidebarStatus() !== 'closed',
     withoutAnimation: false
   }
   public device = DeviceType.Desktop
@@ -32,20 +33,21 @@ class App extends VuexModule implements IAppState {
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
+    console.log('Mutation TOGGLE_SIDEBAR : ', !this.sidebar.opened, withoutAnimation)
     this.sidebar.opened = !this.sidebar.opened
     this.sidebar.withoutAnimation = withoutAnimation
-    if (this.sidebar.opened) {
-      setSidebarStatus('opened')
-    } else {
-      setSidebarStatus('closed')
-    }
+    // if (this.sidebar.opened) {
+    //   setSidebarStatus('opened')
+    // } else {
+    //   setSidebarStatus('closed')
+    // }
   }
 
   @Mutation
   private CLOSE_SIDEBAR(withoutAnimation: boolean) {
     this.sidebar.opened = false
     this.sidebar.withoutAnimation = withoutAnimation
-    setSidebarStatus('closed')
+    // setSidebarStatus('closed')
   }
 
   @Mutation
@@ -67,6 +69,7 @@ class App extends VuexModule implements IAppState {
 
   @Action({ rawError: true })
   public ToggleSideBar(withoutAnimation: boolean) {
+    console.log('ToggleSideBar : ', withoutAnimation)
     this.TOGGLE_SIDEBAR(withoutAnimation)
   }
 

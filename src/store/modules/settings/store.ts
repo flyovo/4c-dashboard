@@ -15,6 +15,7 @@ class Settings extends VuexModule implements SettingsState {
   public showSidebarLogo = defaultSettings.showSidebarLogo
   public sidebarTextTheme = defaultSettings.sidebarTextTheme
   public loginTime = defaultSettings.loginTime
+  public menuList = defaultSettings.menuList
   public userEditStatus = false
   public loginTimeStatus = false
 

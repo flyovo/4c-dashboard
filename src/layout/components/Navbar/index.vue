@@ -1,10 +1,10 @@
 <template>
   <div class="navbar">
-    <!-- <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" /> -->
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-    <div class="right-menu">
+    <!-- <div class="right-menu">
       <count-down class="right-menu-item hover-effect" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -56,8 +56,9 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
+  padding-left: 15px;
+  width: 100%;
   height: 50px;
-  overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -66,14 +67,13 @@ export default class extends Vue {
     line-height: 46px;
     height: 100%;
     float: left;
-    padding: 0 15px;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
+    // &:hover {
+    //   background: rgba(0, 0, 0, 0.025);
+    // }
   }
   .breadcrumb-container {
     float: left;
@@ -106,9 +106,9 @@ export default class extends Vue {
         cursor: pointer;
         transition: background 0.3s;
 
-        &:hover {
-          background: rgba(0, 0, 0, 0.025);
-        }
+        // &:hover {
+        //   background: rgba(0, 0, 0, 0.025);
+        // }
       }
     }
 

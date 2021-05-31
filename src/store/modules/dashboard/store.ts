@@ -4,12 +4,36 @@ import { DashboardStoreState } from './type'
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
 import { cloneDeep } from 'lodash'
 import { TEST_TABLE_DATA } from './mock'
-
+import dayjs from 'dayjs'
 @Module({ dynamic: true, store, name: 'dashboardStore', namespaced: true })
 class DashboardStore extends VuexModule implements DashboardStoreState {
   public dashboardList = []
   public dashboardListTotalCount = 0
-  public dashboardToday
+
+  public dateRange = {}
+  public dateToday = dayjs(new Date())
+  public crntMonth = {
+    from: dayjs(this.dateToday)
+      .date(1)
+      .format('YYYY-MM-DD'),
+    to: this.dateToday.format('YYYY-MM-DD')
+  }
+  public PrevMonth = {
+    from: dayjs(this.dateToday)
+      .subtract(1, 'month')
+      .date(1)
+      .format('YYYY-MM-DD'),
+    to: this.dateToday.format('YYYY-MM-DD')
+  }
+  public PrevYear = {
+    from: dayjs(this.dateToday)
+      .subtract(1, 'year')
+      .date(1)
+      .format('YYYY-MM-DD'),
+    to: this.dateToday.format('YYYY-MM-DD')
+  }
+  public tableList = []
+  public tableListTotalCount = 0
 
   @Mutation
   private SET_CHANGE_VALUE(payload: { key: string; value: any }) {
@@ -41,19 +65,46 @@ class DashboardStore extends VuexModule implements DashboardStoreState {
     this.SET_CHANGE_VALUE({ key: 'dashboardListTotalCount', value: totalCount })
   }
 
-  // @Action({ rawError: true })
-  // public dateReform(date: Date) {
-  //   this.SET_CHANGE_VALUE({ key: 'dashboardToday', value: `${this.numFormat(date.getFullYear())}-${this.numFormat(date.getMonth() + 1)}-${this.numFormat(date.getDate())}` })
-  // }
+  @Action({ rawError: true })
+  public GetTableData(payload: any) {
+    const page = payload.page
+    const limit = payload.limit
+    const dataList2 = cloneDeep(payload.data)
+    let count = 1
+    const dataList = dataList2.map(item => {
+      return { ...item }
+    })
+    const pageList = dataList.filter((_, index) => index < (limit as number) * (page as number) && index >= (limit as number) * ((page as number) - 1))
+    const totalCount = dataList.length
 
-  // @Action({ rawError: true })
-  // public numFormat(variable: Number) {
-  //   let twoString = Number(variable).toString()
-  //   if (variable < 10) {
-  //     twoString = '0' + twoString
-  //   }
-  //   return twoString
-  // }
+    this.SET_CHANGE_VALUE({ key: 'tableList', value: pageList })
+    this.SET_CHANGE_VALUE({ key: 'tableListTotalCount', value: totalCount })
+  }
+
+  @Action({ rawError: true })
+  public GetDateRange(payload: any) {
+    const selectDate = payload.date
+    console.log('GetDateRange')
+    console.log(selectDate)
+    let date = this.crntMonth
+
+    switch (selectDate) {
+      case 0:
+        date = this.crntMonth
+        break
+      case 1:
+        date = this.PrevMonth
+        break
+      case 2:
+        date = this.PrevYear
+        break
+      default:
+        date = this.crntMonth
+        break
+    }
+    console.log(date)
+    this.SET_CHANGE_VALUE({ key: 'dateRange', value: date })
+  }
 }
 
 export const DashboardStoreModule = getModule(DashboardStore)

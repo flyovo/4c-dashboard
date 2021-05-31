@@ -12,7 +12,7 @@ export interface IPieChart {
   legend: string[]
   colors: string[]
   seriesData: SeriesType[]
-  seriesRadius: string
+  seriesRadius: string | string[]
   seriesMegTitle: string
   seriesPosition: string[]
 }
@@ -81,6 +81,12 @@ export default class extends Vue {
             name: chartItems.seriesMegTitle,
             type: 'pie',
             radius: chartItems.seriesRadius,
+            label: {
+              position: 'inner',
+              color: '#fff',
+              fontSize: 14,
+              formatter: '{d}% '
+            },
             center: chartItems.seriesPosition,
             data: chartItems.seriesData,
             emphasis: {

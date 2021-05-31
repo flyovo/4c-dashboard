@@ -3,14 +3,14 @@
     <sidebar-logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
+        mode="vertical"
+        style="background-color:#3d424e;"
         :default-active="activeMenu"
         :collapse="isCollapse"
         :text-color="variables.menuText"
         :active-text-color="variables.menuActiveText"
         :unique-opened="false"
         :collapse-transition="false"
-        mode="vertical"
-        style="background-color:#3d424e;"
       >
         <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" />
       </el-menu>
@@ -26,18 +26,27 @@ import { SettingsModule } from '@/store/modules/settings/store'
 
 import SidebarItem from './SidebarItem.vue'
 import SidebarLogo from './SidebarLogo.vue'
+import SidebarLogoSmall from './SidebarLogoSmall.vue'
 import variables from '@/styles/_variables.scss'
 
 @Component({
   name: 'SideBar',
   components: {
     SidebarItem,
-    SidebarLogo
+    SidebarLogo,
+    SidebarLogoSmall
+  },
+  created() {
+    console.log(AppStoreModule.device)
   }
 })
 export default class extends Vue {
   get sidebar() {
     return AppStoreModule.sidebar
+  }
+
+  get isMobile() {
+    return AppStoreModule.device
   }
 
   get routes() {

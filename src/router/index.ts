@@ -111,6 +111,97 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
+    path: '/raw-data',
+    component: routerName['Layout'],
+    redirect: '/raw-data/raw-data',
+    meta: {
+      title: 'raw-data'
+    },
+    children: [
+      {
+        path: '/raw-data/receipt',
+        component: routerName['rawDataReceipt'],
+        name: '/raw-data/receipt',
+        meta: {
+          title: '/raw-data/receipt',
+          noCache: true
+        }
+      },
+      {
+        path: '/raw-data/certification',
+        component: routerName['rawDataCertification'],
+        name: '/raw-data/certification',
+        meta: {
+          title: '/raw-data/certification',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/statistics',
+    component: routerName['Layout'],
+    meta: {
+      title: 'statistics'
+    },
+    children: [
+      {
+        path: '/statistics/out-patient',
+        component: routerName['statisticsOutPatient'],
+        name: '/statistics/out-patient',
+        meta: {
+          title: '/statistics/out-patient',
+          noCache: true
+        }
+      },
+      {
+        path: '/statistics/in-patient',
+        component: routerName['statisticsInPatient'],
+        name: '/statistics/in-patient',
+        meta: {
+          title: '/statistics/in-patient',
+          noCache: true
+        }
+      },
+      {
+        path: '/statistics/certificate',
+        component: routerName['statisticsCertificate'],
+        name: '/statistics/certificate',
+        meta: {
+          title: '/statistics/certificate',
+          noCache: true
+        }
+      },
+      {
+        path: '/statistics/receipt/week',
+        component: routerName['statisticsWeek'],
+        name: '/statistics/receipt/week',
+        meta: {
+          title: '/statistics/receipt/week',
+          noCache: true
+        }
+      },
+      {
+        path: '/statistics/receipt/compare',
+        component: routerName['statistics'],
+        name: '/statistics/receipt/compare',
+        meta: {
+          title: '/statistics/receipt/compare',
+          noCache: true
+        }
+      },
+      {
+        path: '/statistics/receipt/wait',
+        component: routerName['statisticsTime'],
+        name: '/statistics/receipt/wait',
+        meta: {
+          title: '/statistics/receipt/wait',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
     path: '/unmannedPayment',
     component: routerName['Layout'],
     redirect: '/unmannedPayment/unmannedPayment',

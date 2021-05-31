@@ -1,12 +1,16 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="classObj.mobile && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
-    <div :class="{ hasTagsView: showTagsView }" class="main-container">
-      <div :class="{ 'fixed-header': fixedHeader }">
-        <tags-view v-if="showTagsView" />
+    <!-- <div v-if="sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
+    <div class="container">
+      <sidebar class="sidebar-container" />
+      <div :class="{ hasTagsView: showTagsView }" class="main-container">
+        <navbar />
+        <div :class="{ 'fixed-header': fixedHeader }">
+          <tags-view v-if="showTagsView" />
+        </div>
+        <app-main />
       </div>
-      <app-main />
     </div>
   </div>
 </template>
@@ -31,6 +35,10 @@ import ResizeMixin from './mixin/resize'
 })
 export default class extends mixins(ResizeMixin) {
   get classObj() {
+    console.log('hideSidebar: ', !this.sidebar.opened)
+    console.log('openSidebar: ', this.sidebar.opened)
+    console.log('withoutAnimation: ', this.sidebar.withoutAnimation)
+    console.log('mobile: ', this.device === DeviceType.Mobile)
     return {
       hideSidebar: !this.sidebar.opened,
       openSidebar: this.sidebar.opened,
@@ -63,6 +71,8 @@ export default class extends mixins(ResizeMixin) {
   position: relative;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .drawer-bg {
@@ -74,85 +84,82 @@ export default class extends mixins(ResizeMixin) {
   position: absolute;
   z-index: 999;
 }
-
+.container {
+  display: flex;
+}
 .main-container {
   min-height: 100%;
-  transition: margin-left 0.28s;
   background-color: #f4f3ef;
-  margin-left: $sideBarWidth;
   position: relative;
+  width: calc(100% - #{$sideBarWidth});
 }
 
 .sidebar-container {
-  transition: width 0.28s;
-  width: $sideBarWidth !important;
+  // transition: width 0.28s;
+  // transition-duration: 0.3s;
+  width: $sideBarWidth;
   height: 100%;
-  position: fixed;
-  font-size: 0px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1001;
-  overflow: hidden;
   background-color: #3b404d;
+  overflow: hidden;
 }
 
-.fixed-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9;
-  width: calc(100% - #{$sideBarWidth});
-  transition: width 0.28s;
-}
+// .fixed-header {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   z-index: 9;
+//   width: calc(100% - #{$sideBarWidth});
+//   transition: width 0.28s;
+// }
 
 .hideSidebar {
-  .main-container {
-    margin-left: 54px;
-  }
-
   .sidebar-container {
-    width: 54px !important;
+    width: 0px;
+  }
+  .main-container {
+    width: 100%;
   }
 
-  .fixed-header {
-    width: calc(100% - 54px);
-  }
+  // .fixed-header {
+  //   width: 100%;
+  // }
 }
 
-/* for mobile response 适配移动端 */
+/* for mobile response */
 .mobile {
-  .main-container {
-    margin-left: 0px;
-  }
-
-  .sidebar-container {
-    transition: transform 0.28s;
-    width: $sideBarWidth !important;
-  }
-
   &.openSidebar {
     position: fixed;
-    top: 0;
+    // top: 0;
+    .container {
+      // display: block;
+      .sidebar-container {
+        // transition: transform 0.28s;
+        // width: 100%;
+      }
+      .main-container {
+        .app-main,
+        .navbar {
+          width: 100vw;
+        }
+      }
+    }
   }
 
   &.hideSidebar {
     .sidebar-container {
+      position: absolute;
       pointer-events: none;
-      transition-duration: 0.3s;
-      transform: translate3d(-$sideBarWidth, 0, 0);
+      // transition-duration: 0.3s;
+      // transform: translate3d(-$sideBarWidth, 0, 0);
     }
   }
 
-  .fixed-header {
-    width: 100%;
-  }
-}
+  // .fixed-header {
+  //   width: 100%;
+  // }
 
-.withoutAnimation {
-  .main-container,
-  .sidebar-container {
-    transition: none;
+  .drawer-bg {
+    display: none;
   }
 }
 </style>

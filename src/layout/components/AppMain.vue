@@ -31,7 +31,7 @@ export default class extends Vue {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
   width: 100%;
-  padding: 0 20px;
+  padding: 20px;
   position: relative;
   overflow: hidden;
   background-color: #f4f3ef;

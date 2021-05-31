@@ -3,8 +3,8 @@
     <div class="login-container-sub">
       <el-form ref="loginForm" :model="loginForm" class="login-form" autocomplete="on" label-position="left">
         <div class="title-container">
-          <img src="@/assets/images/icon-logo-yi.png" />
-          <h3 class="title"></h3>
+          <img src="@/assets/images/icon-logo-4c-gray.png" />
+          <!-- <h3 class="title"></h3> -->
         </div>
 
         <el-form-item prop="userId">
@@ -25,8 +25,8 @@
       </el-form>
     </div>
     <div class="copyright">
-      <span class="copyright__text">copyright ⓒ 2020.</span>
-      <span class="copyright__img"><img src="@/assets/images/icon-logo-4c.png"/></span>
+      <span class="copyright__text">copyright ⓒ 2021.</span>
+      <span class="copyright__img"><img src="@/assets/images/icon-logo-4c-gray.png"/></span>
       <span class="copyright__text">All rights reserved</span>
     </div>
     <div class="version-btn-warpper">
@@ -109,9 +109,9 @@ export default class extends Vue {
   .login-container-sub {
     width: 510px;
     height: 516px;
-    margin-top: 110px;
     border-radius: 21px;
-    margin-left: 35vw;
+    margin: auto;
+    margin-top: 110px;
     background-color: #000000;
     .el-input {
       display: inline-block;
@@ -179,9 +179,11 @@ export default class extends Vue {
       color: #a1a3a9;
     }
     &__img {
-      width: 68px;
-      height: 21px;
-      object-fit: contain;
+      img {
+        width: 80px;
+        object-fit: contain;
+        vertical-align: middle;
+      }
       margin-left: 10px;
       margin-right: 15px;
     }
@@ -229,6 +231,10 @@ export default class extends Vue {
     width: 100%;
     background-color: #000000;
     text-align: center;
+    img {
+      width: 50%;
+      margin-bottom: 50px;
+    }
     .title {
       font-size: 26px;
       color: white;

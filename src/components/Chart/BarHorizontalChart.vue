@@ -84,11 +84,11 @@ export default class extends Vue {
         },
         toolbox: {},
         xAxis: {
-          type: 'value',
-          axisLine: { show: false },
-          axisLabel: { show: false },
-          axisTick: { show: false },
-          splitLine: { show: false }
+          type: 'value'
+          // axisLine: { show: false },
+          // axisLabel: { show: false },
+          // axisTick: { show: false },
+          // splitLine: { show: false }
         },
         yAxis: {
           type: 'category',
